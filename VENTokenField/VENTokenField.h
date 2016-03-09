@@ -25,6 +25,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class VENTokenField;
+@class VENToken;
+@class VENTokenColorScheme;
+
 @protocol VENTokenFieldDelegate <NSObject>
 @optional
 - (void)tokenField:(VENTokenField *)tokenField didEnterText:(NSString *)text;
@@ -35,13 +38,14 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @protocol VENTokenFieldDataSource <NSObject>
-@optional
+@required
+- (UIView *)tokenField:(VENTokenField *)tokenField leftViewForTokenAtIndex:(NSUInteger)index;
 - (NSString *)tokenField:(VENTokenField *)tokenField titleForTokenAtIndex:(NSUInteger)index;
 - (NSUInteger)numberOfTokensInTokenField:(VENTokenField *)tokenField;
+@optional
 - (NSString *)tokenFieldCollapsedText:(VENTokenField *)tokenField;
-- (UIColor *)tokenField:(VENTokenField *)tokenField colorSchemeForTokenAtIndex:(NSUInteger)index;
+- (VENTokenColorScheme *)tokenField:(VENTokenField *)tokenField colorSchemeForTokenAtIndex:(NSUInteger)index;
 @end
-
 
 @interface VENTokenField : UIView
 
@@ -80,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic, nullable) NSString *placeholderText;
 @property (copy, nonatomic, nullable) NSString *inputTextFieldAccessibilityLabel;
 
-- (void)setColorScheme:(UIColor *)color;
+- (void)setColorScheme:(VENTokenColorScheme *)colorScheme;
 
 @end
 

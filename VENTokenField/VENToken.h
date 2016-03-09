@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import "VENTokenColorScheme.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,9 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (assign, nonatomic) BOOL highlighted;
 @property (copy, nonatomic, nullable) void (^didTapTokenBlock) (void);
-@property (strong, nonatomic) UIColor *colorScheme;
+@property (copy, nonatomic, nullable) void (^didTapDeleteBlock) (void);
+@property (strong, nonatomic) VENTokenColorScheme *colorScheme;
 
-- (void)setTitleText:(NSString *)text;
+- (void)setLeftView:(UIView *)view;
+- (void)setTitle:(NSString *)title;
 
 @end
 

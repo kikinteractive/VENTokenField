@@ -23,9 +23,12 @@
 #import "VENToken.h"
 
 @interface VENToken ()
-@property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property (strong, nonatomic) IBOutlet UIView *backgroundView;
+
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *removeButton;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *titleLabel;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView *leftViewContainer;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *backgroundButton;
+
 @end
 
 @implementation VENToken
@@ -42,45 +45,79 @@
 
 - (void)setUpInit
 {
-    self.backgroundView.layer.cornerRadius = 5;
-    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapToken:)];
-    self.colorScheme = [UIColor blueColor];
-    self.titleLabel.textColor = self.colorScheme;
-    [self addGestureRecognizer:self.tapGestureRecognizer];
+
 }
 
-- (void)setTitleText:(NSString *)text
+- (void)setLeftView:(UIView *)view
 {
-    self.titleLabel.text = text;
-    self.titleLabel.textColor = self.colorScheme;
+    view.frame = self.leftViewContainer.bounds;
+    for (UIView *subview in self.leftViewContainer.subviews) {
+        [subview removeFromSuperview];
+    }
+    
+    [self.leftViewContainer addSubview:view];
+}
+
+- (void)setTitle:(NSString *)title
+{
+    self.titleLabel.text = title;
+    self.titleLabel.textColor = self.colorScheme.textColor;
     [self.titleLabel sizeToFit];
-    self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetMaxX(self.titleLabel.frame) + 3, CGRectGetHeight(self.frame));
-    [self.titleLabel sizeToFit];
+    
+    CGFloat expectedWidth = CGRectGetWidth(self.titleLabel.frame);
+    
+    if (expectedWidth > 110) {
+        expectedWidth = 110;
+    }
+    
+    CGRect titleLabelFrame = self.titleLabel.frame;
+    titleLabelFrame.origin.y = 0;
+    titleLabelFrame.size.height = CGRectGetHeight(self.frame);
+    titleLabelFrame.size.width = expectedWidth;
+
+    self.frame = CGRectMake(CGRectGetMaxX(self.frame) + 3, CGRectGetMinY(self.frame), CGRectGetWidth(titleLabelFrame) + 70, CGRectGetHeight(self.frame));
+    
+    self.titleLabel.frame = titleLabelFrame;
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
     _highlighted = highlighted;
-    UIColor *textColor = highlighted ? [UIColor whiteColor] : self.colorScheme;
-    UIColor *backgroundColor = highlighted ? self.colorScheme : [UIColor clearColor];
-    self.titleLabel.textColor = textColor;
-    self.backgroundView.backgroundColor = backgroundColor;
+    [self updateColors];
 }
 
-- (void)setColorScheme:(UIColor *)colorScheme
+- (void)setColorScheme:(VENTokenColorScheme *)colorScheme
 {
     _colorScheme = colorScheme;
-    self.titleLabel.textColor = self.colorScheme;
-    [self setHighlighted:_highlighted];
+    [self updateColors];
 }
 
+- (void)updateColors
+{
+    if (!self.colorScheme) {
+        return;
+    }
+    
+    UIColor *textColor = self.highlighted ? self.colorScheme.highlightedTextColor : self.colorScheme.textColor;
+    UIColor *backgroundColor = self.highlighted ? self.colorScheme.highlightedBackgroundColor : self.colorScheme.backgroundColor;
+    self.titleLabel.textColor = textColor;
+    self.removeButton.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.25];
+    self.backgroundButton.backgroundColor = backgroundColor;
+}
 
 #pragma mark - Private
 
-- (void)didTapToken:(UITapGestureRecognizer *)tapGestureRecognizer
+- (IBAction)didTapTokenButton:(id)sender
 {
     if (self.didTapTokenBlock) {
         self.didTapTokenBlock();
+    }
+}
+
+- (IBAction)didTapDeleteButton:(id)sender
+{
+    if (self.didTapDeleteBlock) {
+        self.didTapDeleteBlock();
     }
 }
 
