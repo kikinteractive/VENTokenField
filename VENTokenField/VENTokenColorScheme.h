@@ -15,4 +15,7 @@
 @property (strong, nonatomic) UIColor *backgroundColor;
 @property (strong, nonatomic) UIColor *highlightedBackgroundColor;
 
+@property (strong, nonatomic) UIColor *deleteButtonBackgroundColor;
+@property (strong, nonatomic) UIColor *highlightedDeleteButtonBackgroundColorColor;
+
 @end

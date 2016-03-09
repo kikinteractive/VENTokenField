@@ -24,7 +24,7 @@
 
 @interface VENToken ()
 
-@property (unsafe_unretained, nonatomic) IBOutlet UIButton *removeButton;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *deleteButton;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *titleLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *leftViewContainer;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *backgroundButton;
@@ -45,7 +45,9 @@
 
 - (void)setUpInit
 {
-
+    UIImage *deleteImage = [self.deleteButton imageForState:UIControlStateNormal];
+    deleteImage = [deleteImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.deleteButton setImage:deleteImage forState:UIControlStateNormal];
 }
 
 - (void)setLeftView:(UIView *)view
@@ -66,8 +68,8 @@
     
     CGFloat expectedWidth = CGRectGetWidth(self.titleLabel.frame);
     
-    if (expectedWidth > 110) {
-        expectedWidth = 110;
+    if (expectedWidth > 106) {
+        expectedWidth = 106;
     }
     
     CGRect titleLabelFrame = self.titleLabel.frame;
@@ -75,7 +77,7 @@
     titleLabelFrame.size.height = CGRectGetHeight(self.frame);
     titleLabelFrame.size.width = expectedWidth;
 
-    self.frame = CGRectMake(CGRectGetMaxX(self.frame) + 3, CGRectGetMinY(self.frame), CGRectGetWidth(titleLabelFrame) + 70, CGRectGetHeight(self.frame));
+    self.frame = CGRectMake(CGRectGetMaxX(self.frame) + 3, CGRectGetMinY(self.frame), CGRectGetWidth(titleLabelFrame) + 74, CGRectGetHeight(self.frame));
     
     self.titleLabel.frame = titleLabelFrame;
 }
@@ -94,15 +96,19 @@
 
 - (void)updateColors
 {
-    if (!self.colorScheme) {
+    VENTokenColorScheme *colors = self.colorScheme;
+    
+    if (!colors) {
         return;
     }
     
-    UIColor *textColor = self.highlighted ? self.colorScheme.highlightedTextColor : self.colorScheme.textColor;
-    UIColor *backgroundColor = self.highlighted ? self.colorScheme.highlightedBackgroundColor : self.colorScheme.backgroundColor;
-    self.titleLabel.textColor = textColor;
-    self.removeButton.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.25];
-    self.backgroundButton.backgroundColor = backgroundColor;
+    UIColor *textAndXColor =  _highlighted ? colors.highlightedTextColor : colors.textColor;
+
+    self.titleLabel.textColor = textAndXColor;
+    self.deleteButton.tintColor = textAndXColor;
+    
+    self.deleteButton.backgroundColor = _highlighted ? colors.highlightedDeleteButtonBackgroundColorColor : colors.deleteButtonBackgroundColor;
+    self.backgroundButton.backgroundColor = _highlighted ? colors.highlightedBackgroundColor : colors.backgroundColor;
 }
 
 #pragma mark - Private

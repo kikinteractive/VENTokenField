@@ -19,9 +19,13 @@
     }
     
     self.textColor = [UIColor whiteColor];
-    self.highlightedTextColor = [UIColor yellowColor];
+    self.highlightedTextColor = [UIColor grayColor];
+    
     self.backgroundColor = [UIColor darkGrayColor];
     self.highlightedBackgroundColor = [UIColor lightGrayColor];
+    
+    self.deleteButtonBackgroundColor = [UIColor lightGrayColor];
+    self.highlightedDeleteButtonBackgroundColorColor = [UIColor darkGrayColor];
     
     return self;
 }

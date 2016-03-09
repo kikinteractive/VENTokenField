@@ -31,10 +31,11 @@
                         <action selector="didTapTokenButton:" destination="1" eventType="touchUpInside" id="RgD-5C-eK1"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Mfz-Er-e72">
-                    <rect key="frame" x="152" y="5" width="25" height="25"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Mfz-Er-e72">
+                    <rect key="frame" x="149" y="4" width="27" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="x">
+                    <inset key="contentEdgeInsets" minX="0.0" minY="-4" maxX="0.0" maxY="-4"/>
+                    <state key="normal" image="remove-token-button.png">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -47,7 +48,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label another one" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FXV-AL-mDc">
-                    <rect key="frame" x="39" y="0.0" width="109" height="35"/>
+                    <rect key="frame" x="38" y="0.0" width="106" height="35"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="14"/>
@@ -64,11 +65,14 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="backgroundButton" destination="FID-Bu-FSc" id="XXn-EN-Ztv"/>
+                <outlet property="deleteButton" destination="Mfz-Er-e72" id="MzH-pb-fwl"/>
                 <outlet property="leftViewContainer" destination="IlE-gO-nZD" id="ckp-B2-zfn"/>
-                <outlet property="removeButton" destination="Mfz-Er-e72" id="WgB-fc-B3Z"/>
                 <outlet property="titleLabel" destination="FXV-AL-mDc" id="Bt6-GC-yvD"/>
             </connections>
-            <point key="canvasLocation" x="367" y="361.5"/>
+            <point key="canvasLocation" x="289" y="265.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="remove-token-button.png" width="16" height="16"/>
+    </resources>
 </document>

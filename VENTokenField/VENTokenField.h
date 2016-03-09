@@ -29,22 +29,31 @@ NS_ASSUME_NONNULL_BEGIN
 @class VENTokenColorScheme;
 
 @protocol VENTokenFieldDelegate <NSObject>
+
 @optional
+
 - (void)tokenField:(VENTokenField *)tokenField didEnterText:(NSString *)text;
 - (void)tokenField:(VENTokenField *)tokenField didDeleteTokenAtIndex:(NSUInteger)index;
 - (void)tokenField:(VENTokenField *)tokenField didChangeText:(nullable NSString *)text;
 - (void)tokenFieldDidBeginEditing:(VENTokenField *)tokenField;
 - (void)tokenField:(VENTokenField *)tokenField didChangeContentHeight:(CGFloat)height;
+- (void)tokenFieldDidTapDismiss:(VENTokenField *)tokenField;
+
 @end
 
 @protocol VENTokenFieldDataSource <NSObject>
+
 @required
+
 - (UIView *)tokenField:(VENTokenField *)tokenField leftViewForTokenAtIndex:(NSUInteger)index;
 - (NSString *)tokenField:(VENTokenField *)tokenField titleForTokenAtIndex:(NSUInteger)index;
 - (NSUInteger)numberOfTokensInTokenField:(VENTokenField *)tokenField;
+
 @optional
+
 - (NSString *)tokenFieldCollapsedText:(VENTokenField *)tokenField;
 - (VENTokenColorScheme *)tokenField:(VENTokenField *)tokenField colorSchemeForTokenAtIndex:(NSUInteger)index;
+
 @end
 
 @interface VENTokenField : UIView
@@ -53,6 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) id<VENTokenFieldDataSource> dataSource;
 
 - (void)reloadData;
+- (void)reloadDataAndFlashScrollIndicators;
 - (void)collapse;
 - (nullable NSString *)inputText;
 
@@ -63,8 +73,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 @property (assign, nonatomic) CGFloat maxHeight;
-@property (assign, nonatomic) CGFloat verticalInset;
-@property (assign, nonatomic) CGFloat horizontalInset;
 @property (assign, nonatomic) CGFloat tokenPadding;
 @property (assign, nonatomic) CGFloat minInputWidth;
 
@@ -81,8 +89,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UILabel *toLabel;
 
 @property (strong, nonatomic, nullable) NSArray *delimiters;
-@property (copy, nonatomic, nullable) NSString *placeholderText;
+@property (copy, nonatomic, nullable) NSAttributedString *attributedPlaceholder;
 @property (copy, nonatomic, nullable) NSString *inputTextFieldAccessibilityLabel;
+
+@property (assign, nonatomic) BOOL showDismissButton;
+@property (strong, nonatomic) UIColor *dismissButtonTintColor;
+@property (strong, nonatomic) UIImage *dismissButtonImage;
 
 - (void)setColorScheme:(VENTokenColorScheme *)colorScheme;
 
