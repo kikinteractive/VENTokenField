@@ -27,7 +27,7 @@
 #import "VENBackspaceTextField.h"
 
 static const CGFloat VENTokenFieldDefaultVerticalInset        = 5.0;
-static const CGFloat VENTokenFieldDefaultDismissButtonSpacing = 35.0;
+static const CGFloat VENTokenFieldDefaultDismissButtonSpacing = 50.0;
 static const CGFloat VENTokenFieldDefaultToLabelPadding       = 5.0;
 static const CGFloat VENTokenFieldDefaultTokenPadding         = 2.0;
 static const CGFloat VENTokenFieldDefaultMinInputWidth        = 80.0;
@@ -326,7 +326,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight            = 150.0;
         [self addSubview:self.dismissButton];
 
         CGRect buttonFrame = self.dismissButton.frame;
-        buttonFrame.origin = CGPointMake(10, 12);
+        buttonFrame.origin = CGPointMake(15, 10);
         self.dismissButton.frame = buttonFrame;
     }
     
