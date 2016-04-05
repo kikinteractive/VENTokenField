@@ -267,6 +267,9 @@ static const CGFloat VENTokenFieldDefaultMaxHeight            = 150.0;
 
     self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
+    [self.scrollView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                  action:@selector(handleSingleTapOnScrollView:)]];
+
     [self addSubview:self.scrollView];
 }
 
@@ -523,6 +526,11 @@ static const CGFloat VENTokenFieldDefaultMaxHeight            = 150.0;
 - (void)handleSingleTap:(UITapGestureRecognizer *)gestureRecognizer
 {
     [self becomeFirstResponder];
+}
+
+- (void)handleSingleTapOnScrollView:(UITapGestureRecognizer *)gestureRecognizer
+{
+    [self inputTextFieldBecomeFirstResponder];
 }
 
 - (void)didTapToken:(VENToken *)token
